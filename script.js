@@ -1,3 +1,5 @@
+// import { DataLoader } from './DataLoader.js'
+
 let loadFormData = () => {
     let loadTable = document.getElementById('loadTable');
     let loadData = document.getElementById('loadData');
