@@ -1,4 +1,4 @@
-const loadFormData = () => {
+let loadFormData = () => {
     let loadTable = document.getElementById('loadTable');
     let loadData = document.getElementById('loadData');
 
@@ -7,7 +7,6 @@ const loadFormData = () => {
     // Data
     class DataLoader {
         getter() {
-
             return [
                 {
                     "id": 1,
@@ -229,6 +228,7 @@ const loadFormData = () => {
             return ()=>{
                 let saveElement = document.getElementById(id);
 
+                // select cell and make it
                 for (let i = 0; i < TableHeader.length; i++) {
                     let getCell = saveElement.querySelectorAll('.tableCell')[i];
                     getCell.contentEditable = false;
