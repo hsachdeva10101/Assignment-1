@@ -59,7 +59,7 @@ const loadFormData = () => {
             }
 
             /*
-            // didn't work because it kept Appending table to bottom
+
             var data = JSON.parse(jsonString);
 
             var table = document.getElementById("myTable");
@@ -83,7 +83,6 @@ const loadFormData = () => {
             // table
             let MakeTable = document.createElement('table');
             MakeTable.classList.add('table');
-            // append
             loadTable.append(MakeTable);
 
             // table head
@@ -138,10 +137,11 @@ const loadFormData = () => {
                 delBtn.classList.add("delete-btn");
                 delBtn.innerHTML = 'Delete';
                 delBtn.addEventListener("click", table.delete(tableRowID));
-
                 edit_delCell.append(delBtn)
-                edit_delCell.setAttribute('id' , 'saveCancelTd')
 
+                edit_delCell.setAttribute('id' , 'saveCnclEdtClr')
+
+                // append edit and delete both
                 tr.append(edit_delCell);
 
                 // save button
@@ -159,7 +159,8 @@ const loadFormData = () => {
                 cancelButton.classList.add('btn-info');
                 cancelButton.addEventListener("click", table.cancel(tableRowID , TableHeader, tableData));
                 cancelButton.style.display = 'none';
-
+                
+                // append save and cancel
                 edit_delCell.append(saveButton);
                 edit_delCell.append(cancelButton);
             }
@@ -167,6 +168,9 @@ const loadFormData = () => {
 
         // edit
         edit(id , TableHeader) {
+            // row = btn.parentNode.parentNode
+            // row.contentEditable = true
+            // btn.parentNode.contentEditable = false
             return ()=>{
                 let editElement = document.getElementById(id);
                 for (let i = 0; i < TableHeader.length; i++) {
@@ -175,11 +179,11 @@ const loadFormData = () => {
                 }
 
                 // toggle buttons
-                for (let j = 0; j < editElement.querySelector('#saveCancelTd').children.length; j++) {
-                    if (editElement.querySelector('#saveCancelTd').children[j].style.display === 'none') {
-                        editElement.querySelector('#saveCancelTd').children[j].style.display = 'block';
+                for (let j = 0; j < editElement.querySelector('#saveCnclEdtClr').children.length; j++) {
+                    if (editElement.querySelector('#saveCnclEdtClr').children[j].style.display === 'none') {
+                        editElement.querySelector('#saveCnclEdtClr').children[j].style.display = 'block';
                     } else {
-                        editElement.querySelector('#saveCancelTd').children[j].style.display = 'none';
+                        editElement.querySelector('#saveCnclEdtClr').children[j].style.display = 'none';
                     }
                 }
             }
@@ -209,11 +213,11 @@ const loadFormData = () => {
                 }
 
                 // toggle buttons
-                for (let j = 0; j < cancelElement.querySelector('#saveCancelTd').children.length; j++) {
-                    if (cancelElement.querySelector('#saveCancelTd').children[j].style.display === 'none') {
-                        cancelElement.querySelector('#saveCancelTd').children[j].style.display = 'block';
+                for (let j = 0; j < cancelElement.querySelector('#saveCnclEdtClr').children.length; j++) {
+                    if (cancelElement.querySelector('#saveCnclEdtClr').children[j].style.display === 'none') {
+                        cancelElement.querySelector('#saveCnclEdtClr').children[j].style.display = 'block';
                     } else {
-                        cancelElement.querySelector('#saveCancelTd').children[j].style.display = 'none';
+                        cancelElement.querySelector('#saveCnclEdtClr').children[j].style.display = 'none';
                     }
                 }
             }
@@ -230,11 +234,11 @@ const loadFormData = () => {
                     getCell.contentEditable = false;
                 }
 
-                for (let j = 0; j < saveElement.querySelector('#saveCancelTd').children.length; j++) {
-                    if (saveElement.querySelector('#saveCancelTd').children[j].style.display === 'none') {
-                        saveElement.querySelector('#saveCancelTd').children[j].style.display = 'block';
+                for (let j = 0; j < saveElement.querySelector('#saveCnclEdtClr').children.length; j++) {
+                    if (saveElement.querySelector('#saveCnclEdtClr').children[j].style.display === 'none') {
+                        saveElement.querySelector('#saveCnclEdtClr').children[j].style.display = 'block';
                     } else {
-                        saveElement.querySelector('#saveCancelTd').children[j].style.display = 'none';
+                        saveElement.querySelector('#saveCnclEdtClr').children[j].style.display = 'none';
                     }
                 }
             }
