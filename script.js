@@ -170,6 +170,8 @@ let loadFormData = () => {
             // row = btn.parentNode.parentNode
             // row.contentEditable = true
             // btn.parentNode.contentEditable = false
+
+            // select all cells and make editable true
             return ()=>{
                 let editElement = document.getElementById(id);
                 for (let i = 0; i < TableHeader.length; i++) {
@@ -228,7 +230,7 @@ let loadFormData = () => {
             return ()=>{
                 let saveElement = document.getElementById(id);
 
-                // select cell and make it
+                // select all cells and make editable false
                 for (let i = 0; i < TableHeader.length; i++) {
                     let getCell = saveElement.querySelectorAll('.tableCell')[i];
                     getCell.contentEditable = false;
