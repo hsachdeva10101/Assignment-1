@@ -1,49 +1,51 @@
 // import { DataLoader } from './DataLoader.js'
 
+// Data
+class DataLoader {
+    getter() {
+        return [
+            {
+                "id": 1,
+                "First Name": "foo",
+                "Middle Name": "bar",
+                "Last Name": "baz",
+                "email": "foo@gmail.com",
+                "Phone Number": "123",
+                "Role": "trainee",
+                "Address": "Chd"
+            },
+            {
+                "id": 2,
+                "First Name": "foo",
+                "Middle Name": "bar",
+                "Last Name": "baz",
+                "email": "bar@mail.com",
+                "Phone Number": "456",
+                "Role": "trainee",
+                "Address": "Chd"
+            },
+            {
+                "id": 3,
+                "First Name": "foo",
+                "Middle Name": "bar",
+                "Last Name": "baz",
+                "email": "baz@gmail.com",
+                "Phone Number": "789",
+                "Role": "trainee",
+                "Address": "Chd"
+            }
+        ];
+    }
+}
+
+
 let loadFormData = () => {
     let loadTable = document.getElementById('loadTable');
     let loadData = document.getElementById('loadData');
 
     loadData.innerHTML = 'Refresh Data';
 
-    // Data
-    class DataLoader {
-        getter() {
-            return [
-                {
-                    "id": 1,
-                    "First Name": "foo",
-                    "Middle Name": "bar",
-                    "Last Name": "baz",
-                    "email": "foo@gmail.com",
-                    "Phone Number": "123",
-                    "Role": "trainee",
-                    "Address": "Chd"
-                },
-                {
-                    "id": 2,
-                    "First Name": "foo",
-                    "Middle Name": "bar",
-                    "Last Name": "baz",
-                    "email": "bar@mail.com",
-                    "Phone Number": "456",
-                    "Role": "trainee",
-                    "Address": "Chd"
-                },
-                {
-                    "id": 3,
-                    "First Name": "foo",
-                    "Middle Name": "bar",
-                    "Last Name": "baz",
-                    "email": "baz@gmail.com",
-                    "Phone Number": "789",
-                    "Role": "trainee",
-                    "Address": "Chd"
-                }
-            ];
-        }
-    }
-
+    // Table Class
     class TableClass {
 
         view() {
@@ -123,9 +125,9 @@ let loadFormData = () => {
                     tCell.innerText = tableData[i][TableHeader[j]];
                     tCell.classList.add('tableCell');
                 }
-                
+
                 let edit_delCell = tr.insertCell(-1);
-                
+
                 // edit button
                 let editButton = document.createElement('button');
                 editButton.classList.add('edit-btn');
@@ -160,7 +162,7 @@ let loadFormData = () => {
                 cancelButton.classList.add('btn-info');
                 cancelButton.addEventListener("click", table.cancel(tableRowID , TableHeader, tableData));
                 cancelButton.style.display = 'none';
-                
+
                 // append save and cancel
                 edit_delCell.append(saveButton);
                 edit_delCell.append(cancelButton);
