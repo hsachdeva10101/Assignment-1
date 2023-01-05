@@ -2,10 +2,10 @@ const loadFormData = () => {
     let loadTable = document.getElementById('loadTable');
     let loadData = document.getElementById('loadData');
 
-    loadData.innerText = 'Refresh Data'
+    loadData.innerHTML = 'Refresh Data';
 
-    // all data lies in it
-    class dataSource {
+    // Data
+    class DataLoader {
         getter() {
 
             return [
@@ -39,7 +39,7 @@ const loadFormData = () => {
                     "Role": "trainee",
                     "Address": "Chd"
                 }
-            ]
+            ];
         }
     }
 
@@ -49,82 +49,107 @@ const loadFormData = () => {
             loadTable.innerHTML = '';
             const tableData = data.getter();
 
-            // now let create a table header
             let TableHeader = [];
             for (let i = 0; i < tableData.length; i++) {
                 for (const key in tableData[i]) {
                     if (TableHeader.indexOf(key) === -1) {
-                        TableHeader.push(key)
+                        TableHeader.push(key);
                     }
                 }
             }
 
-            // dynamic table
-            let MakeTable = document.createElement('table')
-            MakeTable.classList.add('table')
-            loadTable.append(MakeTable)
+            /*
+            // didn't work because it kept Appending table to bottom
+            var data = JSON.parse(jsonString);
 
-            let TableHead = document.createElement('thead')
-            TableHead.classList.add('thead')
+            var table = document.getElementById("myTable");
+
+            for (var i = 0; i < data.length; i++) {
+              var row = table.insertRow(-1);
+              var cell1 = row.insertCell(0);
+              cell1.innerHTML = data[i].name;
+              var cell2 = row.insertCell(1);
+              cell2.innerHTML = data[i].age;
+            }
+             */
+
+            /*
+            1. create table -> append to it
+            2. create Table Head -> append to table
+            3. create table row -> append to table
+            4. create action cell -> append to table row
+             */
+
+            // table
+            let MakeTable = document.createElement('table');
+            MakeTable.classList.add('table');
+            // append
+            loadTable.append(MakeTable);
+
+            // table head
+            let TableHead = document.createElement('thead');
+            TableHead.classList.add('thead');
 
             // insert a row in header
-            let thead_tr = TableHead.insertRow(-1)
+            let thead_tr = TableHead.insertRow(-1);
             for (let i = 0; i < TableHeader.length; i++) {
-                let theadRow = document.createElement('th')
-                theadRow.setAttribute('id', 'theadRow-' + i)
-                theadRow.append(TableHeader[i])
-                thead_tr.append(theadRow)
-                thead_tr.setAttribute('id', 'thead_tr-' + i)
+                let theadRow = document.createElement('th');
+                theadRow.setAttribute('id', 'theadRow-' + i);
+                theadRow.append(TableHeader[i]);
+                thead_tr.append(theadRow);
+                thead_tr.setAttribute('id', 'thead_tr-' + i);
             }
 
-            let actionBtn = thead_tr.insertCell(-1)
-            actionBtn.classList.add('table-action')
+            let actionBtn = thead_tr.insertCell(-1);
+            actionBtn.classList.add('table-action');
             actionBtn.innerHTML = '<strong>Action</strong>';
 
-            MakeTable.append(TableHead)
+            MakeTable.append(TableHead);
 
+            // Table Body
             let TableBody = document.createElement('tbody')
-            TableBody.classList.add('tbody')
-            MakeTable.append(TableBody)
+            TableBody.classList.add('tbody');
+            MakeTable.append(TableBody);
 
             for (let i = 0; i < tableData.length; i++) {
-                let tr = TableBody.insertRow(0)
-                TableBody.append(tr)
-                tr.setAttribute('id', 'tr-' + i)
+                let tableRowID = 'tr-' + i;
+
+                let tr = TableBody.insertRow(0);
+                TableBody.append(tr);
+                tr.setAttribute('id', 'tr-' + i);
 
                 for (let j = 0; j < TableHeader.length; j++) {
-                    let tCell = tr.insertCell(-1)
-                    tCell.innerText = tableData[i][TableHeader[j]]
-                    tCell.classList.add('tableCell')
+                    let tCell = tr.insertCell(-1);
+                    tCell.innerText = tableData[i][TableHeader[j]];
+                    tCell.classList.add('tableCell');
                 }
-
+                
+                let edit_delCell = tr.insertCell(-1);
+                
                 // edit button
-                let editButton = document.createElement('button')
-                editButton.classList.add('edit-btn')
+                let editButton = document.createElement('button');
+                editButton.classList.add('edit-btn');
                 editButton.innerHTML = 'Edit';
-
-                let tr_id = 'tr-' + i
-                editButton.addEventListener("click", table.edit(tr_id , TableHeader));
-
-                let editCell = tr.insertCell(-1)
-                editCell.setAttribute('id' , 'saveCancelTd')
-                editCell.append(editButton)
-                tr.append(editCell)
+                editButton.addEventListener("click", table.edit(tableRowID , TableHeader));
+                edit_delCell.append(editButton);
 
                 // delete button
                 let delBtn = document.createElement('button')
                 delBtn.classList.add("delete-btn");
                 delBtn.innerHTML = 'Delete';
-                delBtn.addEventListener("click", table.delete(tr_id));
-                delBtn.setAttribute('id', 'delBtn' + i)
-                editCell.append(delBtn)
+                delBtn.addEventListener("click", table.delete(tableRowID));
+
+                edit_delCell.append(delBtn)
+                edit_delCell.setAttribute('id' , 'saveCancelTd')
+
+                tr.append(edit_delCell);
 
                 // save button
                 let saveButton = document.createElement('button');
                 saveButton.setAttribute('id', 'save-button-' + i);
                 saveButton.innerHTML = 'Save';
                 saveButton.classList.add('save');
-                saveButton.addEventListener("click", table.save(tr_id , TableHeader));
+                saveButton.addEventListener("click", table.save(tableRowID , TableHeader));
                 saveButton.style.display = 'none';
 
                 // cancel button
@@ -132,31 +157,29 @@ const loadFormData = () => {
                 cancelButton.setAttribute('id', 'cancel-button-' + i);
                 cancelButton.innerHTML = 'cancel';
                 cancelButton.classList.add('btn-info');
-                cancelButton.addEventListener("click", table.cancel(tr_id , TableHeader, tableData));
+                cancelButton.addEventListener("click", table.cancel(tableRowID , TableHeader, tableData));
                 cancelButton.style.display = 'none';
 
-                editCell.append(saveButton)
-                editCell.append(cancelButton);
+                edit_delCell.append(saveButton);
+                edit_delCell.append(cancelButton);
             }
         }
 
         // edit
         edit(id , TableHeader) {
             return ()=>{
-                // console.log(id)
-                let editElement = document.getElementById(id)
-
+                let editElement = document.getElementById(id);
                 for (let i = 0; i < TableHeader.length; i++) {
-                    let getCell = editElement.querySelectorAll('.tableCell')[i]
+                    let getCell = editElement.querySelectorAll('.tableCell')[i];
                     getCell.contentEditable = true;
                 }
 
                 // toggle buttons
                 for (let j = 0; j < editElement.querySelector('#saveCancelTd').children.length; j++) {
                     if (editElement.querySelector('#saveCancelTd').children[j].style.display === 'none') {
-                        editElement.querySelector('#saveCancelTd').children[j].style.display = 'block'
+                        editElement.querySelector('#saveCancelTd').children[j].style.display = 'block';
                     } else {
-                        editElement.querySelector('#saveCancelTd').children[j].style.display = 'none'
+                        editElement.querySelector('#saveCancelTd').children[j].style.display = 'none';
                     }
                 }
             }
@@ -164,9 +187,12 @@ const loadFormData = () => {
 
         // delete
         delete(id) {
+            // row = btn.parentNode.parentNode;
+            // document.removeChild(row)
+            // take id and remove
             return ()=>{
-                let delElement = document.getElementById(id)
-                delElement.remove()
+                let delElement = document.getElementById(id);
+                delElement.remove();
             }
         }
 
@@ -184,11 +210,10 @@ const loadFormData = () => {
 
                 // toggle buttons
                 for (let j = 0; j < cancelElement.querySelector('#saveCancelTd').children.length; j++) {
-
                     if (cancelElement.querySelector('#saveCancelTd').children[j].style.display === 'none') {
-                        cancelElement.querySelector('#saveCancelTd').children[j].style.display = 'block'
+                        cancelElement.querySelector('#saveCancelTd').children[j].style.display = 'block';
                     } else {
-                        cancelElement.querySelector('#saveCancelTd').children[j].style.display = 'none'
+                        cancelElement.querySelector('#saveCancelTd').children[j].style.display = 'none';
                     }
                 }
             }
@@ -198,28 +223,25 @@ const loadFormData = () => {
         save(id , TableHeader) {
 
             return ()=>{
-
-                let saveElement = document.getElementById(id)
+                let saveElement = document.getElementById(id);
 
                 for (let i = 0; i < TableHeader.length; i++) {
-                    let getCell = saveElement.querySelectorAll('.tableCell')[i]
-                    getCell.setAttribute('contenteditable' , 'false')
+                    let getCell = saveElement.querySelectorAll('.tableCell')[i];
+                    getCell.contentEditable = false;
                 }
 
                 for (let j = 0; j < saveElement.querySelector('#saveCancelTd').children.length; j++) {
-                    console.log(saveElement.querySelector('#saveCancelTd').children[j])
                     if (saveElement.querySelector('#saveCancelTd').children[j].style.display === 'none') {
-                        saveElement.querySelector('#saveCancelTd').children[j].style.display = 'block'
+                        saveElement.querySelector('#saveCancelTd').children[j].style.display = 'block';
                     } else {
-                        saveElement.querySelector('#saveCancelTd').children[j].style.display = 'none'
+                        saveElement.querySelector('#saveCancelTd').children[j].style.display = 'none';
                     }
                 }
             }
         }
     }
 
-    let data = new dataSource();
-
-    let table = new TableClass()
+    let data = new DataLoader();
+    let table = new TableClass();
     table.view()
 }
