@@ -38,7 +38,6 @@ class DataLoader {
     }
 }
 
-
 let loadFormData = () => {
     let loadTable = document.getElementById('loadTable');
     let loadData = document.getElementById('loadData');
