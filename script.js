@@ -49,7 +49,7 @@ let loadFormData = () => {
 
         view() {
             loadTable.innerHTML = '';
-            const tableData = data.getter();
+            let tableData = data.getter();
 
             let TableHeader = [];
             for (let i = 0; i < tableData.length; i++) {
