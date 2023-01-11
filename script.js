@@ -2,7 +2,7 @@ class DataLoader {
     getter() {
         let data = [
             {
-            "id": 1,
+            "id": "1",
             "First Name": "foo",
             "Middle Name": "bar",
             "Last Name": "baz",
@@ -12,7 +12,7 @@ class DataLoader {
             "Address": "Chd"
             },
             {
-                "id": 2,
+                "id": "2",
                 "First Name": "foo",
                 "Middle Name": "bar",
                 "Last Name": "baz",
@@ -22,7 +22,7 @@ class DataLoader {
                 "Address": "Chd"
             },
             {
-                "id": 3,
+                "id": "3",
                 "First Name": "foo",
                 "Middle Name": "bar",
                 "Last Name": "baz",
@@ -115,29 +115,28 @@ class TableClass {
 
             let tr = TableBody.insertRow(0);
             TableBody.append(tr);
-            tr.setAttribute('id', 'tr-' + i);
+            tr.setAttribute('id', tableRowID);
 
             for (let j = 0; j < TableHeader.length; j++) {
                 let tCell = tr.insertCell(-1);
                 tCell.innerText = tableData[i][TableHeader[j]];
                 tCell.classList.add('tableCell');
             }
-
-            let table = new TableClass()
+            
             let edit_delCell = tr.insertCell(-1);
 
             // edit button
             let editButton = document.createElement('button');
             editButton.classList.add('edit-btn');
             editButton.innerHTML = 'Edit';
-            editButton.addEventListener("click", table.edit(tableRowID , TableHeader));
+            editButton.addEventListener("click", this.edit(tableRowID , TableHeader));
             edit_delCell.append(editButton);
 
             // delete button
             let delBtn = document.createElement('button')
             delBtn.classList.add("delete-btn");
             delBtn.innerHTML = 'Delete';
-            delBtn.addEventListener("click", table.delete(tableRowID));
+            delBtn.addEventListener("click", this.delete(tableRowID));
             edit_delCell.append(delBtn)
 
             edit_delCell.setAttribute('id' , 'saveCnclEdtClr')
@@ -150,7 +149,7 @@ class TableClass {
             saveButton.setAttribute('id', 'save-button-' + i);
             saveButton.innerHTML = 'Save';
             saveButton.classList.add('save');
-            saveButton.addEventListener("click", table.save(tableRowID , TableHeader));
+            saveButton.addEventListener("click", this.save(tableRowID , TableHeader));
             saveButton.style.display = 'none';
 
             // cancel button
@@ -158,7 +157,7 @@ class TableClass {
             cancelButton.setAttribute('id', 'cancel-button-' + i);
             cancelButton.innerHTML = 'cancel';
             cancelButton.classList.add('btn-info');
-            cancelButton.addEventListener("click", table.cancel(tableRowID , TableHeader, tableData));
+            cancelButton.addEventListener("click", this.cancel(tableRowID , TableHeader, tableData));
             cancelButton.style.display = 'none';
 
             // append save and cancel
