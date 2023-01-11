@@ -41,7 +41,6 @@ class TableClass {
 
     // view
     view() {
-
         let loadTable = document.getElementById('loadTable');
         loadTable.innerHTML = '';
 
@@ -56,7 +55,6 @@ class TableClass {
                 }
             }
         }
-
         /*
 
         let data = JSON.parse(jsonString);
@@ -78,7 +76,6 @@ class TableClass {
         3. create table row -> append to table
         4. create action cell -> append to table row
          */
-
         // table
         let MakeTable = document.createElement('table');
         MakeTable.classList.add('table');
@@ -122,7 +119,7 @@ class TableClass {
                 tCell.innerText = tableData[i][TableHeader[j]];
                 tCell.classList.add('tableCell');
             }
-            
+
             let edit_delCell = tr.insertCell(-1);
 
             // edit button
