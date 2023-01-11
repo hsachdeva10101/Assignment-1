@@ -1,6 +1,45 @@
-// import { DataLoader } from './DataLoader.js'
+class DataLoader {
+    getter() {
+        let data = [
+            {
+            "id": 1,
+            "First Name": "foo",
+            "Middle Name": "bar",
+            "Last Name": "baz",
+            "email": "foo@gmail.com",
+            "Phone Number": "123",
+            "Role": "trainee",
+            "Address": "Chd"
+            },
+            {
+                "id": 2,
+                "First Name": "foo",
+                "Middle Name": "bar",
+                "Last Name": "baz",
+                "email": "bar@mail.com",
+                "Phone Number": "456",
+                "Role": "trainee",
+                "Address": "Chd"
+            },
+            {
+                "id": 3,
+                "First Name": "foo",
+                "Middle Name": "bar",
+                "Last Name": "baz",
+                "email": "baz@gmail.com",
+                "Phone Number": "789",
+                "Role": "trainee",
+                "Address": "Chd"
+            }
+        ];
+
+        return data;
+    }
+}
+
 class TableClass {
 
+    // view
     view() {
 
         let loadTable = document.getElementById('loadTable');
@@ -20,15 +59,15 @@ class TableClass {
 
         /*
 
-        var data = JSON.parse(jsonString);
+        let data = JSON.parse(jsonString);
 
-        var table = document.getElementById("myTable");
+        let table = document.getElementById("myTable");
 
-        for (var i = 0; i < data.length; i++) {
-          var row = table.insertRow(-1);
-          var cell1 = row.insertCell(0);
+        for (let i = 0; i < data.length; i++) {
+          let row = table.insertRow(-1);
+          let cell1 = row.insertCell(0);
           cell1.innerHTML = data[i].name;
-          var cell2 = row.insertCell(1);
+          let cell2 = row.insertCell(1);
           cell2.innerHTML = data[i].age;
         }
          */
@@ -51,6 +90,7 @@ class TableClass {
 
         // insert a row in header
         let thead_tr = TableHead.insertRow(-1);
+
         for (let i = 0; i < TableHeader.length; i++) {
             let theadRow = document.createElement('th');
             theadRow.setAttribute('id', 'theadRow-' + i);
@@ -61,7 +101,7 @@ class TableClass {
 
         let actionBtn = thead_tr.insertCell(-1);
         actionBtn.classList.add('table-action');
-        actionBtn.innerHTML = '<strong>Action</strong>';
+        actionBtn.innerHTML = `<strong>Action</strong>`;
 
         MakeTable.append(TableHead);
 
@@ -128,7 +168,7 @@ class TableClass {
     }
 
     // edit
-    edit(id , TableHeader) {
+    edit(id, TableHeader) {
         // row = btn.parentNode.parentNode
         // row.contentEditable = true
         // btn.parentNode.contentEditable = false
@@ -164,8 +204,8 @@ class TableClass {
     }
 
     // cancel
-    cancel(id , TableHeader, tableData) {
-        return function () {
+    cancel(id, TableHeader, tableData) {
+        return ()=>{
             let cancelElement = document.getElementById(id);
             let cancelElementIndex = document.getElementById(id).rowIndex;
 
@@ -187,7 +227,7 @@ class TableClass {
     }
 
     // save
-    save(id , TableHeader) {
+    save(id, TableHeader) {
 
         return ()=>{
             let saveElement = document.getElementById(id);
@@ -209,44 +249,7 @@ class TableClass {
     }
 }
 
-class DataLoader {
-    getter() {
-        return [
-            {
-                "id": 1,
-                "First Name": "foo",
-                "Middle Name": "bar",
-                "Last Name": "baz",
-                "email": "foo@gmail.com",
-                "Phone Number": "123",
-                "Role": "trainee",
-                "Address": "Chd"
-            },
-            {
-                "id": 2,
-                "First Name": "foo",
-                "Middle Name": "bar",
-                "Last Name": "baz",
-                "email": "bar@mail.com",
-                "Phone Number": "456",
-                "Role": "trainee",
-                "Address": "Chd"
-            },
-            {
-                "id": 3,
-                "First Name": "foo",
-                "Middle Name": "bar",
-                "Last Name": "baz",
-                "email": "baz@gmail.com",
-                "Phone Number": "789",
-                "Role": "trainee",
-                "Address": "Chd"
-            }
-        ];
-    }
-}
-
-let loadFormData = () => {
+let loadFormData=()=> {
 
     let loadData = document.getElementById('loadData');
     loadData.innerHTML = 'Refresh Data';
